@@ -22,7 +22,7 @@
 * The network uses a already trained model in the folder [./trainedModels](./trainedModels)
 * The output will be the ground truth image and the image predicted using the previous 20 frames of occupancy grid. The system also prints out the accuracy and the rms error.
 * An example from testing the trained model:
-	* Left is ground truth and right is predicted at index *900681*. The computed RMS error value = ~15.2
+	* Top is *ground truth* and bottom is *predicted*. The computed RMS error value = ~15.2
 	* ![Ground Truth](ground%20truth.png)
 	* ![Predicted Occupancy Grid](prediction.png)
 

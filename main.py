@@ -124,7 +124,7 @@ with h5py.File('/media/vijay/Windows/InvincE/GoogleDrive/Full time app/Dispatch/
        
     
     
-    sess = tf.Session(config=tf.ConfigProto(log_device_placement=True))
+    sess = tf.Session()
     init_op = tf.initialize_all_variables()
     
     if not loadModel:  #training model from stratch
@@ -163,8 +163,9 @@ with h5py.File('/media/vijay/Windows/InvincE/GoogleDrive/Full time app/Dispatch/
         print "Model saved at ",save_path 
     
     else:
+        assert len(sys.argv)>1, "Enter input index"
         inputIndex = int(sys.argv[1])
-        #assert inputIndex > int(train_test_split*num_images) and inputIndex<occupancy.shape[-1], "Input index should be between 800000 and the max number of frames"
+        assert inputIndex > int(train_test_split*num_images) and inputIndex<occupancy.shape[-1], "Input index should be between 800000 and the max number of frames"
 
         sess.run(init_op)
         testData = getDataTest(inputIndex)
