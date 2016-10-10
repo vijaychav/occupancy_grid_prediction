@@ -22,7 +22,7 @@ import tensorflow as tf
 
 historyRange = 20
 modelName = "./trainedModel.ckpt"
-loadModel = 0
+loadModel = 1
 
 #np.set_printoptions(threshold=np.inf)
 
@@ -34,7 +34,7 @@ with h5py.File('/media/vijay/Windows/InvincE/GoogleDrive/Full time app/Dispatch/
     print occupancy.shape
 
     #occupancyData = occupancy[:,:,inputIndex-historyRange:inputIndex]
-    train_test_split = 0.7
+    train_test_split = 0.8
     num_images = occupancy.shape[2]
     
     def quantize(x,case):
@@ -85,7 +85,7 @@ with h5py.File('/media/vijay/Windows/InvincE/GoogleDrive/Full time app/Dispatch/
 
     num_train = int(train_test_split*num_images)
 
-    learning_rate = 0.01
+    learning_rate = 0.03
     training_iters = 900*num_train
     num_batch = 1
     max_grad_norm = 10
@@ -133,7 +133,7 @@ with h5py.File('/media/vijay/Windows/InvincE/GoogleDrive/Full time app/Dispatch/
         sess.run(init_op)
         step=0
         #while step+historyRange< num_images:
-        while step+historyRange< 2000:
+        while step+historyRange< num_images:
             train, trainTarget = next(trainData)
             train = [train]; trainTarget = [trainTarget]
             startTime = time.clock()
@@ -163,8 +163,8 @@ with h5py.File('/media/vijay/Windows/InvincE/GoogleDrive/Full time app/Dispatch/
         print "Model saved at ",save_path 
     
     else:
-        inputIndex = sys.argv[1]
-        assert inputIndex > int(train_test_split*num_images) and inputIndex<occupancy.shape[-1], "Input index should be between 700000 and the max number of frames"
+        inputIndex = int(sys.argv[1])
+        #assert inputIndex > int(train_test_split*num_images) and inputIndex<occupancy.shape[-1], "Input index should be between 800000 and the max number of frames"
 
         sess.run(init_op)
         testData = getDataTest(inputIndex)
@@ -173,18 +173,18 @@ with h5py.File('/media/vijay/Windows/InvincE/GoogleDrive/Full time app/Dispatch/
         print "Using saved model......"
         test, testTarget = next(testData)
         #print test
-        plt.figure(3)
-        plt.imshow(test[-1].reshape([100,100]))
-        plt.colorbar(orientation='vertical')
-        plt.title("Occupancy")
-        print "testTarget:", testTarget
+        #plt.figure(3)
+        #plt.imshow(test[-1].reshape([100,100]))
+        #plt.colorbar(orientation='vertical')
+        #plt.title("Occupancy")
+        #print "testTarget:", testTarget
         test= [test]; testTarget = [testTarget]
         testTargetShow = 255*(testTarget[0].reshape([100,100]))        
         testacc = sess.run(accuracy, feed_dict={x:np.array(test), y:np.array(testTarget)})
         output = sess.run(logit_sig, feed_dict={x:np.array(test), y:np.array(testTarget)})
         rmserror = sess.run(rmserr, feed_dict={x:np.array(test), y:np.array(testTarget)})
         print "Test Accuracy:", testacc
-        print "Rms Error:", rmserror
+        print "Test Rms Error:", rmserror
         
         outputShow = 255*(output[0].reshape([100,100]))
         #print "Error distance = ", np.linalg.norm(testTargetShow.flatten()-outputShow.flatten())

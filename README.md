@@ -8,14 +8,16 @@
 ##### Describe the approach you took and why you chose it
 * Between supervised and unsupervised learning, since we had a large dataset, the context of the sequence of any 20 frames could be learn't thoroughly using supervised learning. In techniques of supervised learning, neural networks are found to be the most powerful tool in time sequence prediction in capturing the temporal relation between the sequential frames. I decided to build a deep learning model on tensorflow which made use of LSTMs. 
 * The **rms error** during testing dropped to as low as **10**
-* I divided the given set of 1,000,000 images into a training set of 700,000 images and a testing set of 100,000 images. Each sample used to train the network is a sequence of 20 frames with each frame in the sequence being a *100x100* image. The target against which each sequence is trained is the ground truth image at the 21st (or the next) index.
+* I divided the given set of 1,000,000 images into a training set of 800,000 images and a testing set of 200,000 images. Each sample used to train the network is a sequence of 20 frames with each frame in the sequence being a *100x100* image. The target against which each sequence is trained is the ground truth image at the 21st (or the next) index.
 
 ##### Running the model
 * Make sure the hd5y file path is mentioned in the file main.py
 * To run use:
-  ```python
-  sudo python main.py <input index>
-  ```
+
+```python
+sudo python main.py <input index>
+```
+
 * Make sure **input index is between 700,000 and 1,000,000** since the input index should point to an index in the test set and not the training set 
 * The network uses a already trained model in the folder [./trainedModels](./trainedModels)
 * The output will be the ground truth image and the image predicted using the previous 20 frames of occupancy grid. The system also prints out the accuracy and the rms error.
