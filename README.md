@@ -18,7 +18,7 @@
   sudo python main.py <input index>
   ```
 
-* Make sure **input index is between 700,000 and 1,000,000** since the input index should point to an index in the test set and not the training set 
+* Make sure **input index is between 800,000 and 1,000,000** since the input index should point to an index in the test set and not the training set 
 * The network uses a already trained model in the folder [./trainedModels](./trainedModels)
 * The output will be the ground truth image and the image predicted using the previous 20 frames of occupancy grid. The system also prints out the accuracy and the rms error.
 * An example from testing the trained model:
