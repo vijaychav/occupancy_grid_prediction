@@ -14,13 +14,19 @@
 * Make sure the hd5y file path is mentioned in the file main.py
 * To run use:
 
-```python
-sudo python main.py <input index>
-```
+  ```python
+  sudo python main.py <input index>
+  ```
 
 * Make sure **input index is between 700,000 and 1,000,000** since the input index should point to an index in the test set and not the training set 
 * The network uses a already trained model in the folder [./trainedModels](./trainedModels)
 * The output will be the ground truth image and the image predicted using the previous 20 frames of occupancy grid. The system also prints out the accuracy and the rms error.
+* An example from testing the trained model:
+	* Left is ground truth and right is predicted at index *900681*. The computed RMS error value = ~15.2
+	* ![Ground Truth](ground%20truth.png)
+	* ![Predicted Occupancy Grid](prediction.png)
+
+
 
 ##### Advantages and disadvantages
 * Advantages:
